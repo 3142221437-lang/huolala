@@ -1,29 +1,31 @@
+# ==============================================
+# TrendRadar v6.6.0 标准配置（官方格式）
+# ==============================================
+
+# 全局设置
 global:
-  crawler_name: "货拉拉全网舆情监控"
-  crawl_interval: 100
-  timeout: 30
-  retry_times: 3
+  timezone: Asia/Shanghai
+  interval: 100
   deduplicate: true
   keep_days: 7
-  random_user_agent: true
-  proxy: ""
 
-# 关键词
+# 频率词（只监控：货拉拉）
 frequency_words:
   - 货拉拉
 
-# 数据源（抖音+小红书+微博+知乎+新闻）
+# 数据源（全平台：新闻+微博+抖音+小红书+知乎）
 sources:
+  # 新闻
   - id: baidu_news
     name: 百度新闻
     url: "https://news.baidu.com/ns?word=货拉拉&tn=news&from=news&cl=2&rn=20&ct=1"
     type: html
     enabled: true
     rules:
-      list: '.result-op'
-      title: '.c-title a'
-      link: '.c-title a@href'
-      time: '.c-author'
+      list: ".result-op"
+      title: ".c-title a"
+      link: ".c-title a@href"
+      time: ".c-author"
 
   - id: sogou_news
     name: 搜狗新闻
@@ -31,21 +33,22 @@ sources:
     type: html
     enabled: true
     rules:
-      list: '.vrwrap'
-      title: '.vr-title a'
-      link: '.vr-title a@href'
-      time: '.news-time'
+      list: ".vrwrap"
+      title: ".vr-title a"
+      link: ".vr-title a@href"
+      time: ".news-time"
 
+  # 社交
   - id: weibo
     name: 微博
     url: "https://s.weibo.com/weibo?q=货拉拉"
     type: html
     enabled: true
     rules:
-      list: '.card-wrap'
-      title: '.txt'
-      link: '.from a@href'
-      time: '.from'
+      list: ".card-wrap"
+      title: ".txt"
+      link: ".from a@href"
+      time: ".from"
 
   - id: zhihu
     name: 知乎
@@ -53,21 +56,22 @@ sources:
     type: html
     enabled: true
     rules:
-      list: '.List-item'
-      title: '.ContentItem-title'
-      link: '.ContentItem-title a@href'
-      time: '.ContentItem-time'
+      list: ".List-item"
+      title: ".ContentItem-title"
+      link: ".ContentItem-title a@href"
+      time: ".ContentItem-time"
 
+  # 短视频 & 种草
   - id: douyin
     name: 抖音
     url: "https://www.douyin.com/search/search/result/?keyword=货拉拉"
     type: html
     enabled: true
     rules:
-      list: '.video-card'
-      title: '.title'
-      link: '.title a@href'
-      time: '.time'
+      list: ".video-card"
+      title: ".title"
+      link: ".title a@href"
+      time: ".time"
 
   - id: xiaohongshu
     name: 小红书
@@ -75,10 +79,10 @@ sources:
     type: html
     enabled: true
     rules:
-      list: '.note-item'
-      title: '.title'
-      link: '.title a@href'
-      time: '.time'
+      list: ".note-item"
+      title: ".title"
+      link: ".title a@href"
+      time: ".time"
 
 # 通知（邮件）
 notifications:
