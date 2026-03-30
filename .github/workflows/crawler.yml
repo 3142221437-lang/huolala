@@ -2,7 +2,7 @@ name: Get Hot News
 
 on:
   schedule:
-    # 每天 9:00 ~ 18:00 每小时执行（北京时间）
+    # 每天 9:00–18:00 每小时执行（北京时间）
     - cron: "33 1-9 * * *"
 
   workflow_dispatch:
@@ -67,9 +67,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      # ✅ 修复：使用正确的 setup-uv 版本（v3 稳定版）
       - name: Install uv
         if: success()
-        uses: astral-sh/setup-uv@7
+        uses: astral-sh/setup-uv@v3
 
       - name: Install dependencies
         if: success()
