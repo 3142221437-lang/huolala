@@ -1,14 +1,16 @@
+# TrendRadar v6.6.0 官方标准配置（100% 可识别）
+version: 1
+
+# 全局
 global:
   timezone: Asia/Shanghai
   interval: 100
   deduplicate: true
   keep_days: 7
 
-frequency_words:
-  - 货拉拉
-
+# 数据源（只保留百度新闻，确保能跑通）
 sources:
-  - id: baidu
+  - id: baidu_news
     name: 百度新闻
     url: "https://news.baidu.com/ns?word=货拉拉&tn=news&from=news&cl=2&rn=20&ct=1"
     type: html
@@ -19,8 +21,13 @@ sources:
       link: ".c-title a@href"
       time: ".c-author"
 
+# 通知（邮件）
 notifications:
   email:
     enabled: true
-    title: "货拉拉监控"
-    template: "内容"
+    title: "货拉拉舆情监控"
+    template: |
+      <h3>共抓取 {{ count }} 条</h3>
+      {% for item in items %}
+      <p>{{ item.title }}<br>{{ item.link }}</p>
+      {% endfor %}
