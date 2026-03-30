@@ -1,22 +1,14 @@
-# ==============================================
-# TrendRadar v6.6.0 标准配置（官方格式）
-# ==============================================
-
-# 全局设置
 global:
   timezone: Asia/Shanghai
   interval: 100
   deduplicate: true
   keep_days: 7
 
-# 频率词（只监控：货拉拉）
 frequency_words:
   - 货拉拉
 
-# 数据源（全平台：新闻+微博+抖音+小红书+知乎）
 sources:
-  # 新闻
-  - id: baidu_news
+  - id: baidu
     name: 百度新闻
     url: "https://news.baidu.com/ns?word=货拉拉&tn=news&from=news&cl=2&rn=20&ct=1"
     type: html
@@ -27,76 +19,8 @@ sources:
       link: ".c-title a@href"
       time: ".c-author"
 
-  - id: sogou_news
-    name: 搜狗新闻
-    url: "https://news.sogou.com/news?query=货拉拉&mode=1&sort=1"
-    type: html
-    enabled: true
-    rules:
-      list: ".vrwrap"
-      title: ".vr-title a"
-      link: ".vr-title a@href"
-      time: ".news-time"
-
-  # 社交
-  - id: weibo
-    name: 微博
-    url: "https://s.weibo.com/weibo?q=货拉拉"
-    type: html
-    enabled: true
-    rules:
-      list: ".card-wrap"
-      title: ".txt"
-      link: ".from a@href"
-      time: ".from"
-
-  - id: zhihu
-    name: 知乎
-    url: "https://www.zhihu.com/search?type=content&q=货拉拉"
-    type: html
-    enabled: true
-    rules:
-      list: ".List-item"
-      title: ".ContentItem-title"
-      link: ".ContentItem-title a@href"
-      time: ".ContentItem-time"
-
-  # 短视频 & 种草
-  - id: douyin
-    name: 抖音
-    url: "https://www.douyin.com/search/search/result/?keyword=货拉拉"
-    type: html
-    enabled: true
-    rules:
-      list: ".video-card"
-      title: ".title"
-      link: ".title a@href"
-      time: ".time"
-
-  - id: xiaohongshu
-    name: 小红书
-    url: "https://www.xiaohongshu.com/search_result?keyword=货拉拉"
-    type: html
-    enabled: true
-    rules:
-      list: ".note-item"
-      title: ".title"
-      link: ".title a@href"
-      time: ".time"
-
-# 通知（邮件）
 notifications:
   email:
     enabled: true
-    title: "【货拉拉舆情监控】最新资讯"
-    template: |
-      <h3>共抓取到 {{ count }} 条相关信息</h3>
-      <ul>
-      {% for item in items %}
-        <li>
-          <strong>{{ item.title }}</strong><br>
-          来源：{{ item.source }} | 时间：{{ item.time }}<br>
-          链接：<a href="{{ item.link }}">{{ item.link }}</a>
-        </li>
-      {% endfor %}
-      </ul>
+    title: "货拉拉监控"
+    template: "内容"
